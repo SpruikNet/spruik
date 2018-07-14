@@ -1,4 +1,4 @@
-import "ECVerify.sol";
+import "ECConfirm.sol";
 
 // Registers supply and demand, facilitates discovery, and manages the impression tracking state channels between them
 contract AdMarket is ECVerify {
