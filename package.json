@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/gauravsavanur07/spruik#readme",
   "dependencies": {
+    "jquery": "^3.3.1",
     "koa": "^2.5.2",
     "koa-static": "^5.0.0",
     "react": "^16.4.2",
