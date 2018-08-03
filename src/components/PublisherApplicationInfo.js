@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import './PublisherApplicationInfo.css'
+
+
 class PublisherApplicationInfo extends Component {
   render () {
     return (
@@ -10,7 +13,11 @@ class PublisherApplicationInfo extends Component {
               adChain Benefits the Publisher
             </div>
           </div>
-        </div>
+        	<div className='column sixteen wide'>
+           	   <div className='ui grid'>
+            </div>
+          </div>
+	 </div>
       </div>
     )
   }
