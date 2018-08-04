@@ -4,6 +4,18 @@ body {
   font-family: sans-serif;
 }
 
+
+body,
+.ui.header,
+.ui.card>.content>.header,
+.ui.cards>.card>.content>.header,
+.ui.items>.item>.content>.header,
+:root .ui.header .sub.header,
+:root:root .statistic .label,
+:root:root .statistic .value {
+  color: #333;
+}
+
 body::-webkit-scrollbar,
 .overflow-x::-webkit-scrollbar,
 .overflow-y::-webkit-scrollbar {
