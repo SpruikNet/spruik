@@ -8,8 +8,8 @@
     "start:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject" ,
-    "deploy": "npm run build && eb deploy" 
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && eb deploy"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/gauravsavanur07/spruik#readme",
   "dependencies": {
+    "blockies": "0.0.2",
+    "commafy": "0.0.5",
     "jquery": "^3.3.1",
     "koa": "^2.5.2",
     "koa-static": "^5.0.0",

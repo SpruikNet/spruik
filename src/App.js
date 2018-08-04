@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MainSidebar from './components/MainSidebar'
-import MainContainer from './components/MainContainer
+import MainContainer from './components/MainContainer'
 
 
 import './App.css'
