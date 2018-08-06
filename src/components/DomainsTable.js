@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import commafy from 'commafy'
-
+import capitalize from 'capitalize'
 import 'react-table/react-table.css'
 import './DomainsTable.css'
 
@@ -44,7 +44,7 @@ const data = [{
   status: 'vote',
   challengePeriodEnd: 8495,
   action: 'vote',
-  stats: '14,934 ADT committed'
+  stats: '14,934 ADT Committed'
 }]
 
 const columns = [{
@@ -56,9 +56,25 @@ const columns = [{
   }}>{props.value}</a>,
   minWidth: 150
 }, {
-  Header: 'Site Name',
-  accessor: 'siteName',
-  minWidth: 200
+  Header: 'Action',
+  accessor: 'action',
+  Cell: (props) => {
+    const {value} = props
+    let type = 'blue'
+     if (/challenge/gi.test(value)) {
+      type = 'purple'
+    }
+     return <a className={`ui mini button ${type}`} href onClick={(event) => {
+      event.preventDefault()
+      history.push(`/domains`)
+    }}>{props.value}</a>
+  },
+
+
+
+
+
+
 }, {
   Header: 'ADT Staked',
   accessor: 'adtStaked',
@@ -82,6 +98,13 @@ const columns = [{
   accessor: 'stats',
   minWidth: 200
 }]
+}, {
+
+ Header: 'Phase',
+  accessor: 'status',
+  Cell: (props) => capitalize.words(props.value),
+  minWidth: 120
+}, {
 
 function filterMethod (filter, row, column) {
   const id = filter.pivotId || filter.id
