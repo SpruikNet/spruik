@@ -16,6 +16,8 @@ class MainSidebar extends Component {
   }
 
   render () {
+  const Link = this._link
+
     return (
         <div className='MainSidebar ui sidebar inverted vertical menu visible'>
         <div className='adChainLogo ui image'>
@@ -28,14 +30,25 @@ class MainSidebar extends Component {
         </div>
         <div className="SidebarList overflow-y">
           <ul className='ui list'>
-            <li className='item'><a>All domains</a></li>
-            <li className='item'><a>Domains in registry</a></li>
-            <li className='item'><a>Domains in application</a></li>
-            <li className='item'><a>Domains in voting</a></li>
-            <li className='item'><a>Rejected domains</a></li>
-            <li className='item ApplyLink'><a>Apply now</a></li>
-          </ul>
-        </div>
+ <li className='item'>
+            <li className='item'><a href='#/domains?approved=true'>Domains in registry</a></li>	              <Link to='/domains' activeClassName='active'>All domains</Link>
+            <li className='item'><a href='#/domains?pending=true'>Domains in application</a></li>	            </li>
+            <li className='item'><a href='#/domains?in_voting=true'>Domains in voting</a></li>	            <li className='item'>
+            <li className='item'><a href='#/domains?rejected=true'>Rejected domains</a></li>	              <Link to='/domains?approved=true'>Domains in registry</Link>
+            <li className='item ApplyLink'><a href='#/apply'>Apply now</a></li>	            </li>
+            <li className='item'>
+              <Link to='/domains?pending=true'>Domains in application</Link>
+            </li>
+            <li className='item'>
+              <Link to='/domains?in_voting=true'>Domains in voting</Link>
+            </li>
+            <li className='item'>
+              <Link to='/domains?rejected=true'>Rejected domains</Link>
+            </li>
+            <li className='item ApplyLink'>
+              <Link to='/apply'>Apply now</Link>
+            </li>        
+</div>
         <div className="SidebarFooter">
           <div className='metaxLogo ui image'>
             <a href='https://metax.io' target='_blank' rel='noopener noreferrer'>

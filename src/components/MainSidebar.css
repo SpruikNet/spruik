@@ -39,7 +39,9 @@
 }
 
 :root:root .MainSidebar .list .item {
-  color: #F4F7FA;
+  color: #F4F7FA; 
+  padding: 0.3em 0.7em;
+
 }
 
 :root:root .MainSidebar .list .item:before,
@@ -50,8 +52,15 @@
 :root:root .MainSidebar .list .item a {
   display: block;
   padding: 0.3em 1.2em;
+  border-radius: 0.3em;  
+  padding:0.3 em 07em;
+  border: 1px solid transparent;
 }
-
+:root:root .MainSidebar .list .item a.active,
+:root:root .MainSidebar .list .item a.active:hover {
+  font-weight: bold;
+  border-color: #F4F7FA;
+}
 :root:root .MainSidebar .list .item a:hover {
   text-decoration: underline;
 }
