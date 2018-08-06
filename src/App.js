@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import MainSidebar from './components/MainSidebar'
 import MainContainer from './components/MainContainer'
 import {
-  HashRouter as Router,
+  BrowserRouter  as Router,
   Route,
   NavLink as Link,
   Switch
