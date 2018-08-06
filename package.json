@@ -26,6 +26,7 @@
     "commafy": "0.0.5",
     "jquery": "^3.3.1",
     "koa": "^2.5.2",
+    "koa-sslify": "^2.1.2",
     "koa-static": "^5.0.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
