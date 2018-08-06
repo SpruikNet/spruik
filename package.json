@@ -29,6 +29,7 @@
     "koa-sslify": "^2.1.2",
     "koa-static": "^5.0.0",
     "react": "^16.4.2",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.4.2",
     "react-scripts": "^1.1.4",
     "react-table": "^6.8.6",
