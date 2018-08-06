@@ -25,8 +25,11 @@
     "blockies": "0.0.2",
     "camel-keys": "^1.0.1",
     "camelcase": "^5.0.0",
+    "capitalize": "^1.0.0",
     "commafy": "0.0.5",
     "debounce": "^1.1.0",
+    "is-valid-domain": "0.0.5",
+    "is-valid-email": "0.0.2",
     "jquery": "^3.3.1",
     "koa": "^2.5.2",
     "koa-sslify": "^2.1.2",
@@ -39,6 +42,7 @@
     "react-table": "^6.8.6",
     "snakecase-keys": "^1.2.0",
     "standard": "^11.0.1",
+    "toastr": "^2.1.4",
     "update-query": "^1.0.5"
   }
 }
