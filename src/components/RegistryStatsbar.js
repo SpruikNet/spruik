@@ -10,7 +10,7 @@ const toalInApplication =  5432
 const totalInCommit = 7489
     const totalInReveal = 923
     const totalInRegistry = 82311
-
+const  {showHeader} =this.state
     return (
       <div className='RegistryStatsbar BoxFrame'>
         <div className='ui mini statistics'>
