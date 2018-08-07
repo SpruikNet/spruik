@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { HashRouter as Route, Route } from 'react-router-dom'
 
+import AccountDashboard  from './AccountDashboard'
+
 import MainTopbar from './MainTopbar'
 import ApplicationContainer from './ApplicationContainer'
 
@@ -15,6 +17,9 @@ return (
           <Route path='/domains' exact={true} component={DomainsContainer} />	      <Route path='/domains' exact={true} component={DomainsContainer} />
         </div>	    </div>
       </Router>	  
+  <Route path='/account' exact component={AccountDashboard} />
+
+
 )
 
 export default MainContainer
