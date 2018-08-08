@@ -37,6 +37,7 @@
     "koa-path-match": "^2.0.0",
     "koa-sslify": "^2.1.2",
     "koa-static": "^5.0.0",
+    "pify": "^3.0.0",
     "qs": "^6.5.2",
     "react": "^16.4.2",
     "react-addons-css-transition-group": "^15.6.2",
@@ -44,6 +45,7 @@
     "react-scripts": "^1.1.4",
     "react-table": "^6.8.6",
     "snakecase-keys": "^1.2.0",
+    "solidity-sha3": "^0.4.1",
     "standard": "^11.0.1",
     "toastr": "^2.1.4",
     "update-query": "^1.0.5"
