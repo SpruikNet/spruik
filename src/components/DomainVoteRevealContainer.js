@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import commafy from 'commafy'
 import toastr from 'toastr'
 import moment from 'moment'
-
+import DomainVoteRevealInContainer from './DomainVoteRevealInProgressContainer'
 
 import './DomainVoteRevealContainer.css'
 
@@ -15,9 +15,20 @@ class DomainVoteRevealContainer extends Component {
       applicationExpiry: null,
       votesFor: 0,
       votesAgainst: 0
+ commitEndDate: null,
+      revealEndDate: null,
+      inProgress: false,
+      didChallenge: false,
+      salt: 123,
+      voteOption: 0
+
+
+
     }	    }
      this.getListing()
-    this.getPoll()
+    this.getPoll() 
+    this.getChallenge()
+
   }	  }
 
     }
@@ -29,9 +40,15 @@ class DomainVoteRevealContainer extends Component {
       applicationExpiry,
       domain,
       votesFor,
+      revealEndDate,
+      inProgress,
+      didChallenge,
       votesAgainst
     } = this.state
-     const stageEnd = applicationExpiry ? moment.unix(applicationExpiry).format('YYYY-MM-DD HH:mm:ss') : '-'
+     const stageEnd = revealEndDate ? moment.unix(revealEndDate).format('YYYY-MM-DD HH:mm:ss') : '-'
+const totalVotes = ((votesFor + votesAgainst) | 0)
+    const supportFill = ((totalVotes / votesFor * 1e2) | 0)
+    const opposeFill = ((totalVotes / votesAgainst * 1e2) | 0)
 
     return (
       <div className='DomainChallengeContainer'>
