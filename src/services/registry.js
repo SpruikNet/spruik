@@ -1,5 +1,8 @@
 import sha3 from 'solidity-sha3'
 import pify from 'pify'
+import plcr from './plcr'
+
+import saltHashVote from './parameterizer'
 
 import token from './token'
 import parameterizer from './parameterizer'
@@ -186,6 +189,16 @@ class RegistryService {
       resolve(value)
     })
   }
+  async getChallengeId (domain) {
+    if (!domain) {
+      return new Error('Domain is required')
+    }
+     const listing = await this.getListing(domain)
+     const {
+      challengeId
+    } = listing
+     return challengeId
+  }
 
   async getTransactionReceipt (tx) {
     return new Promise(async (resolve, reject) => {
@@ -198,6 +211,22 @@ class RegistryService {
       resolve(result)
     })
   }
-}
+ async getPlcrAddress () {
+    return new Promise(async (resolve, reject) => {
+      if (!this.registry) {
+        this.initContract()
+      }
+       const result = await pify(this.registry.voting.call)()
+       resolve(result)
+    })
+  }
+   async commitVote ({domain, votes, voteOption, salt}) {
+    const challengeId = await this.getChallengeId(domain)
+    const prevPollId = 0
+    const hash = saltHashVote(voteOption, salt)
+     return plcr.commit({pollId: challengeId, hash, tokens: votes, prevPollId})
+  }
+}	}
+
 
 export default new RegistryService()
