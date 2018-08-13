@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import commafy from 'commafy'
+import toastr from 'toastr'
+import moment from 'moment'
+
 
 import './DomainVoteRevealContainer.css'
 
@@ -8,12 +11,27 @@ class DomainVoteRevealContainer extends Component {
     super()
 
     this.state = {
+  domain: props.domain,
+      applicationExpiry: null,
+      votesFor: 0,
+      votesAgainst: 0
+    }	    }
+     this.getListing()
+    this.getPoll()
+  }	  }
 
     }
   }
 
   render () {
     const blocksRemaining = 1239
+ const {
+      applicationExpiry,
+      domain,
+      votesFor,
+      votesAgainst
+    } = this.state
+     const stageEnd = applicationExpiry ? moment.unix(applicationExpiry).format('YYYY-MM-DD HH:mm:ss') : '-'
 
     return (
       <div className='DomainChallengeContainer'>
@@ -55,6 +73,44 @@ the Publisher’s application into the adChain Registry
       </div>
     )
   }
-}
+ async getListing () {
+    const {domain} = this.state
+    const listing = await registry.getListing(domain)
+     const {
+      applicationExpiry
+    } = listing
+     this.setState({
+      applicationExpiry
+    })
+  }
+   async getPoll () {
+    const {domain} = this.state
+    const {
+      votesFor,
+      votesAgainst
+    } = await registry.getChallengePoll(domain)
+     this.setState({
+      votesFor,
+      votesAgainst
+    })
+  }
+   async onReveal (event) {
+    event.preventDefault()
+     const {domain} = this.state
+    const salt = 123
+    const voteOption = 1
+     try {
+      const result = await registry.revealVote({domain, voteOption, salt})
+      toastr.success('Success')
+    } catch (error) {
+      toastr.error(error.message)
+    }
+  }
+}	}
+
+
+
+
+
 
 export default DomainVoteRevealContainer
