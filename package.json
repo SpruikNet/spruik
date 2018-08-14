@@ -23,6 +23,7 @@
   "homepage": "https://github.com/gauravsavanur07/spruik#readme",
   "dependencies": {
     "alexa-stats": "0.0.2",
+    "bip39": "^2.5.0",
     "blockies": "0.0.2",
     "camel-keys": "^1.0.1",
     "camelcase": "^5.0.0",
@@ -43,6 +44,7 @@
     "moment": "^2.22.2",
     "pify": "^3.0.0",
     "promise-wait": "^1.0.0",
+    "prop-types": "^15.6.2",
     "qs": "^6.5.2",
     "random-int": "^1.0.0",
     "react": "^16.4.2",
@@ -55,5 +57,16 @@
     "standard": "^11.0.1",
     "toastr": "^2.1.4",
     "update-query": "^1.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^4.5.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard-react": "^5.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "standard": "^10.0.2"
   }
 }
