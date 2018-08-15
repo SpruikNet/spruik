@@ -3,8 +3,10 @@ import pify from 'pify'
 
 import token from '../token'
 import store from '../store'
+import { getAbi } from '../config'
 
-const abi = require('../config/plcr.json').abi
+const abi = getAbi('plcr')
+
 
 
 class PlcrService {
