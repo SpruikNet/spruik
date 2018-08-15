@@ -475,6 +475,39 @@ class RegistryService {
       }
     })
   }
+  async getCommitHash (domain) {
+    return new Promise(async (resolve, reject) => {
+      domain = domain.toLowerCase()
+
+      try {
+        const challengeId = await this.getChallengeId(domain)
+        const hash = await plcr.getCommitHash(challengeId)
+        resolve(hash)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  async didCommit (domain) {
+    return new Promise(async (resolve, reject) => {
+      domain = domain.toLowerCase()
+
+      try {
+        const challengeId = await this.getChallengeId(domain)
+        const hash = await plcr.getCommitHash(challengeId)
+        let didCommit = false
+
+        if (hash !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
+          didCommit = true
+        }
+
+        resolve(didCommit)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
 
   async commitVote ({domain, votes, voteOption, salt}) {
     return new Promise(async (resolve, reject) => {
@@ -581,6 +614,55 @@ class RegistryService {
 
       try {
         const result = await pify(window.web3.eth.getTransaction)(tx)
+        resolve(result)
+      } catch (error) {
+        reject(error)
+        return false
+      }
+    })
+  }
+  async didReveal (domain) {
+    return new Promise(async (resolve, reject) => {
+      domain = domain.toLowerCase()
+
+      try {
+        const challengeId = await this.getChallengeId(domain)
+        const didReveal = await plcr.hasBeenRevealed(challengeId)
+        resolve(didReveal)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  voterHasEnoughVotingTokens (tokens) {
+    return plcr.hasEnoughTokens(tokens)
+  }
+
+  async getTransaction (tx) {
+    return new Promise(async (resolve, reject) => {
+      if (!this.registry) {
+        this.initContract()
+      }
+
+      try {
+        const result = await pify(window.web3.eth.getTransaction)(tx)
+        resolve(result)
+      } catch (error) {
+        reject(error)
+        return false
+      }
+    })
+  }
+
+  async getTransactionReceipt (tx) {
+    return new Promise(async (resolve, reject) => {
+      if (!this.registry) {
+        this.initContract()
+      }
+
+      try {
+        const result = await pify(window.web3.eth.getTransactionReceipt)(tx)
         resolve(result)
       } catch (error) {
         reject(error)
