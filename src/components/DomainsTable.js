@@ -2,9 +2,26 @@ import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import commafy from 'commafy'
 import capitalize from 'capitalize'
+import moment from 'moment'
+
+import store from '../store'
+import registry from '../services/registry'
+
+
 import 'react-table/react-table.css'
 import './DomainsTable.css'
 
+function filterMethod (filter, row, column) {
+  const id = filter.pivotId || filter.id
+
+  if (filter.value instanceof RegExp) {
+    return row[id] !== undefined ? filter.value.test(row[id]) : true
+  }
+
+  return row[id] !== undefined && filter.value ? String(row[id]).startsWith(filter.value) : true
+}
+
+var history = null
 const data = [{
   domain: 'foo.net',
   siteName: 'Foo Net Media',
@@ -156,5 +173,88 @@ class DomainsTable extends Component {
     )
   }
 }
+  async getData () {
+    const response = await window.fetch(`https://adchain-registry-api.metax.io/registry/domains/all`)
+    const domains = await response.json()
 
+    const data = await Promise.all(domains.map(async domain => {
+      return new Promise(async (resolve, reject) => {
+        const listing = await registry.getListing(domain)
+
+        const {
+          applicationExpiry,
+          isWhitelisted,
+          challengeId
+        } = listing
+
+        const item = {
+          domain,
+          siteName: domain,
+          stage: null,
+          stageEnds: null,
+          action: null,
+          stats: null
+        }
+
+        const applicationExists = !!applicationExpiry
+        const challengeOpen = (challengeId === 0 && !isWhitelisted && applicationExpiry)
+        const commitOpen = await registry.commitPeriodActive(domain)
+        const revealOpen = await registry.revealPeriodActive(domain)
+        // const pollEnded = await registry.pollEnded(domain)
+
+        if (isWhitelisted) {
+          item.stage = 'in_registry'
+          item.deposit = listing.currentDeposit
+        } else if (challengeOpen) {
+          item.stage = 'in_application'
+          item.stageEnds = moment.unix(applicationExpiry).format('YYYY-MM-DD HH:mm:ss')
+        } else if (commitOpen) {
+          item.stage = 'voting_commit'
+          const {
+            commitEndDate
+          } = await registry.getChallengePoll(domain)
+          item.stageEnds = moment.unix(commitEndDate).format('YYYY-MM-DD HH:mm:ss')
+        } else if (revealOpen) {
+          item.stage = 'voting_reveal'
+          const {
+            revealEndDate,
+            votesFor,
+            votesAgainst
+          } = await registry.getChallengePoll(domain)
+          item.stageEnds = moment.unix(revealEndDate).format('YYYY-MM-DD HH:mm:ss')
+          item.stats = {
+            votesFor,
+            votesAgainst
+          }
+        } else if (applicationExists) {
+          item.stage = 'view'
+        } else {
+          item.stage = 'apply'
+        }
+
+        resolve(item)
+      })
+    }))
+
+    this.setState({
+      data: data
+    })
+  }
+
+  async updateStatus (domain) {
+    try {
+      await registry.updateStatus(domain)
+
+    } catch (error) {
+
+    }
+
+    this.getData()
+  }
+}
+
+DomainsTable.propTypes = {
+  filters: PropTypes.array,
+  history: PropTypes.object
+}
 export default DomainsTable

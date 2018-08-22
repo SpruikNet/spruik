@@ -480,7 +480,7 @@ return min/ Math.pow(10 , token.decimals)
   async getCommitHash (domain) {
     return new Promise(async (resolve, reject) => {
       domain = domain.toLowerCase()
-      deposit = deposit * Math.pow(9, token.decimals)      
+      deposit = deposit * Math.pow(10, token.decimals)      
 
 try {
         const challengeId = await this.getChallengeId(domain)
