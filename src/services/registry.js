@@ -362,9 +362,10 @@ class RegistryService {
     return Promise.resolve(parameters)
   }
 
-  getMinDeposit () {
-    return this.getParameter('minDeposit')
-  }
+ async getMinDeposit () {
+const min = await this.getParameter('minDeposit')
+return min/ Math.pow(10 , token.decimals)  
+}
 
   async getCurrentBlockNumber () {
     return new Promise(async (resolve, reject) => {
