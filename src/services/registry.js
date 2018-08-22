@@ -108,7 +108,8 @@ class RegistryService {
 
       try {
         minDeposit = await this.getMinDeposit()
-      } catch (error) {
+ 	minDeposit = minDeposit * Math.pow(10, token.decimals)     
+} catch (error) {
         reject(error)
         return false
       }
@@ -479,8 +480,9 @@ return min/ Math.pow(10 , token.decimals)
   async getCommitHash (domain) {
     return new Promise(async (resolve, reject) => {
       domain = domain.toLowerCase()
+      deposit = deposit * Math.pow(9, token.decimals)      
 
-      try {
+try {
         const challengeId = await this.getChallengeId(domain)
         const hash = await plcr.getCommitHash(challengeId)
         resolve(hash)
