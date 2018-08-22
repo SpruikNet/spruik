@@ -1,8 +1,48 @@
+import React, { Component ] from 'react'
+import Proptypes from 'prop-types'
+import isValidDomain from 'is-valid-domain' 
+import isValidEmail from 'is-valid-email'
 import './PublisherApplicationForm.css'
+import qs from 'qs'
 import toastr from 'toastr'
+
 import IsValidDomain from 'is-valid-domain'
+import registry from '../servics/registry'
+import PublisherApplicationFormInProgress from './PublisherApplicationFormInProgress'
+
 class PublisherApplicationForm extends Component {
-  render () {
+constructor (props) {
+    super()
+
+    const query = qs.parse(document.location.search.substr(1))
+
+    this.state = {
+      minDeposit: '-',
+      domain: query.domain,
+      inProgress: false
+    }
+
+    this.history = props.history
+    this.onMinDepositClick = this.onMinDepositClick.bind(this)
+    this.onFormSubmit = this.onFormSubmit.bind(this)
+
+    this.getMinDeposit()
+  }
+
+  async getMinDeposit () {
+    this.setState({
+      minDeposit: await registry.getMinDeposit()
+    })
+  }
+  
+
+
+
+
+
+
+
+render () {
     return (
       <div className='PublisherApplicationForm BoxFrame'>
         <div className='ui grid stackable'>
@@ -115,8 +155,17 @@ class PublisherApplicationForm extends Component {
       </div>
     )
   }
+ onMinDepositClick (event) {
+    event.preventDefault()
 
-  onFormSubmit (event) {
+    const input = document.querySelector('#PublisherApplicationFormStakeInput')
+
+    if (input) {
+      input.value = this.state.minDeposit
+    }
+  }
+
+async  onFormSubmit (event) {
     event.preventDefault()
     const {target} = event
 

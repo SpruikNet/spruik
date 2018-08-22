@@ -108,7 +108,8 @@ class RegistryService {
 
       try {
         minDeposit = await this.getMinDeposit()
-      } catch (error) {
+ 	minDeposit = minDeposit * Math.pow(10, token.decimals)     
+} catch (error) {
         reject(error)
         return false
       }
@@ -362,9 +363,10 @@ class RegistryService {
     return Promise.resolve(parameters)
   }
 
-  getMinDeposit () {
-    return this.getParameter('minDeposit')
-  }
+ async getMinDeposit () {
+const min = await this.getParameter('minDeposit')
+return min/ Math.pow(10 , token.decimals)  
+}
 
   async getCurrentBlockNumber () {
     return new Promise(async (resolve, reject) => {
@@ -478,8 +480,9 @@ class RegistryService {
   async getCommitHash (domain) {
     return new Promise(async (resolve, reject) => {
       domain = domain.toLowerCase()
+      deposit = deposit * Math.pow(10, token.decimals)      
 
-      try {
+try {
         const challengeId = await this.getChallengeId(domain)
         const hash = await plcr.getCommitHash(challengeId)
         resolve(hash)
@@ -572,7 +575,15 @@ class RegistryService {
 
   getChallengePoll (domain) {
     return new Promise(async (resolve, reject) => {
-      try {
+if(!domain)
+reject(new Error('Domain is Required'))
+return false 
+} 
+
+domain = domain.toLowerCase()
+      
+
+ try {
         const challengeId = await this.getChallengeId(domain)
         const result = await plcr.getPoll(challengeId)
         resolve(result)
