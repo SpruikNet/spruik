@@ -1,0 +1,7 @@
+.PublisherApplicationForm {
+
+}
+
+:root:root .PublisherApplicationForm .form label {
+  text-transform: uppercase;
+}
